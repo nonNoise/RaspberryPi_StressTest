@@ -5,7 +5,17 @@ from datetime import datetime
 import psutil
 import os
 
+import subprocess
+
+
+
+
 def main():
+
+    command_str = ["dstat -a"] 
+    proc = subprocess.Popen(command_str, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+    proc.stdout.readline()
+    proc.stdout.readline()
     while True:
         date       = datetime.now().strftime("%Y/%m/%d %H:%M:%S")          # 現在時刻
         temp       = run_shell_command("vcgencmd measure_temp")      # CPU温度
@@ -16,7 +26,31 @@ def main():
         memory_gpu = run_shell_command("vcgencmd get_mem gpu")       # GPUのメモリ使用量
         cpu = psutil.cpu_percent(percpu=True)                        # CPU使用率
         memory_percent = psutil.virtual_memory().percent             # メモリ使用率
-        print("{}, temp:{}, cpu:{}, clock:{}, volts:{}, cpu_m:{},cpu_p:{}, gpu_m:{}".format(date, temp, cpu,clock, volts, memory_cpu,memory_percent, memory_gpu))
+
+        buf = proc.stdout.readline().replace('|', '').split()
+        dstat_json = {}
+        dstat_json["cpu_usage"]  = {}
+        dstat_json["cpu_usage"]["usr"]  = buf[0]
+        dstat_json["cpu_usage"]["sys"]  = buf[1]
+        dstat_json["cpu_usage"]["idl"]  = buf[2]
+        dstat_json["cpu_usage"]["wai"]  = buf[3]
+        dstat_json["cpu_usage"]["stl"]  = buf[4]
+        dstat_json["dsk"]  = {}
+        dstat_json["dsk"]["read"]       = buf[5]
+        dstat_json["dsk"]["writ"]       = buf[6]
+        dstat_json["net"]  = {}
+        dstat_json["net"]["recv"]       = buf[7]
+        dstat_json["net"]["send"]       = buf[8]
+        dstat_json["paging"] = {} 
+        dstat_json["paging"]["in"]      = buf[9]
+        dstat_json["paging"]["out"]     = buf[10]
+        dstat_json["system"] = {} 
+        dstat_json["system"]["int"]     = buf[11]
+        dstat_json["system"]["csw"]     = buf[12]
+
+        print("{}, temp:{}, cpu:{}, clock:{}, volts:{},mem_p:{},net:{}".format(date, temp, cpu,clock, volts,memory_percent,dstat_json["net"]["send"]))
+
+
         time.sleep(0.8) # 1秒待つ
         
         """    
@@ -40,6 +74,7 @@ def run_shell_command(command_str):
     proc = subprocess.run(command_str, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
     result = proc.stdout.split("=")
     return result[1].replace('\n', '')
+
 
 if __name__ == '__main__':
     main()
