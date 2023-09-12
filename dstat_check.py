@@ -8,7 +8,7 @@ proc.stdout.readline()
 while True:
     tmp = proc.stdout.readline()
     print(tmp)
-    buf = tmp.replace('|', '').split()
+    buf = tmp.replace('|', ' ').split()
     print(buf)
     dstat_json = {}
     dstat_json["cpu_usage"]  = {}
