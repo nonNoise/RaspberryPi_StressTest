@@ -17,6 +17,7 @@ def main():
         cpu = psutil.cpu_percent(percpu=True)                        # CPU使用率
         memory_percent = psutil.virtual_memory().percent             # メモリ使用率
         print("{}, temp:{}, cpu:{}, clock:{}, volts:{}, cpu_m:{},cpu_p:{}, gpu_m:{}".format(date, temp, cpu,clock, volts, memory_cpu,memory_percent, memory_gpu))
+        time.sleep(0.8) # 1秒待つ
         
         """    
         fname = datetime.now().strftime('%Y%m%d')+".csv"
