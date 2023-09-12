@@ -28,6 +28,7 @@ def main():
         memory_percent = psutil.virtual_memory().percent             # メモリ使用率
 
         buf = proc.stdout.readline().replace('|', '').split()
+        print(buf)
         dstat_json = {}
         dstat_json["cpu_usage"]  = {}
         dstat_json["cpu_usage"]["usr"]  = buf[0]
@@ -48,7 +49,7 @@ def main():
         dstat_json["system"]["int"]     = buf[11]
         dstat_json["system"]["csw"]     = buf[12]
 
-        print("{}, temp:{}, cpu:{}, clock:{}, volts:{},mem_p:{},net:{}".format(date, temp, cpu,clock, volts,memory_percent,dstat_json["net"]["send"]))
+        print("{}, temp:{}, cpu:{}, clock:{}, volts:{},mem_p:{},net:{}".format(date, temp, cpu,clock, volts,memory_percent,dstat_json["net"][]))
 
 
         time.sleep(0.8) # 1秒待つ
