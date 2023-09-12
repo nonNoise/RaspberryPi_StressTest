@@ -61,10 +61,10 @@ def main():
             
         else:
             fp = open(fname, 'w',encoding='Shift-JIS')
-            fp.write("time,temp,cpu1,cpu2,cpu3,cpu4,clock,volts,mem_p,net\n")
+            fp.write("time,temp,cpu1,cpu2,cpu3,cpu4,clock,volts,mem_p,net_recv,net_send\n")
 
         # 結果表示
-        fp.write("{},{},{},{},{},{},{},{},{},{},{}\n".format(datetime.now().strftime('%H:%M:%S'), temp, cpu[0],cpu[1],cpu[2],cpu[3],clock, volts, memory_percent, dstat_json["net"]["send"]))
+        fp.write("{},{},{},{},{},{},{},{},{},{},{}\n".format(datetime.now().strftime('%H:%M:%S'), temp, cpu[0],cpu[1],cpu[2],cpu[3],clock, volts, memory_percent, dstat_json["net"]["recv"], dstat_json["net"]["send"]))
         fp.close()
 
 # シェルコマンドを実行する関数
