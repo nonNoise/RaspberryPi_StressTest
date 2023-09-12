@@ -49,7 +49,7 @@ def main():
         dstat_json["system"]["int"]     = buf[11]
         dstat_json["system"]["csw"]     = buf[12]
 
-        print("{}, temp:{}, cpu:{}, clock:{}, volts:{},mem_p:{},net:{}".format(date, temp, cpu,clock, volts,memory_percent,dstat_json["net"][]))
+        print("{}, temp:{}, cpu:{}, clock:{}, volts:{},mem_p:{},net:{}".format(date, temp, cpu,clock, volts,memory_percent,dstat_json["net"]["send"]))
 
 
         time.sleep(0.8) # 1秒待つ
