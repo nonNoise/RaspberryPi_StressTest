@@ -54,21 +54,18 @@ def main():
 
         time.sleep(0.8) # 1秒待つ
         
-        """    
+        
         fname = datetime.now().strftime('%Y%m%d')+".csv"
         if(os.path.isfile(fname)):
             fp = open(fname, 'a',encoding='Shift-JIS')
             
         else:
             fp = open(fname, 'w',encoding='Shift-JIS')
-            fp.write("time,temp,cpu1,cpu2,cpu3,cpu4,clock,volts,cpu_m,cpu_p,gpu_m\n")
-
+            fp.write("time,temp,cpu1,cpu2,cpu3,cpu4,clock,volts,mem_p,net\n")
 
         # 結果表示
-        fp.write("{},{},{},{},{},{},{},{},{},{},{}\n".format(datetime.now().strftime('%H:%M:%S'), temp, cpu[0],cpu[1],cpu[2],cpu[3],clock, volts, memory_cpu,memory_percent, memory_gpu))
+        fp.write("{},{},{},{},{},{},{},{},{},{},{}\n".format(datetime.now().strftime('%H:%M:%S'), temp, cpu[0],cpu[1],cpu[2],cpu[3],clock, volts, memory_percent, dstat_json["net"]["send"]))
         fp.close()
-        time.sleep(0.8) # 1秒待つ
-        """
 
 # シェルコマンドを実行する関数
 def run_shell_command(command_str):
