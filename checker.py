@@ -27,7 +27,7 @@ def main():
         cpu = psutil.cpu_percent(percpu=True)                        # CPU使用率
         memory_percent = psutil.virtual_memory().percent             # メモリ使用率
 
-        buf = proc.stdout.readline().replace('|', '').split()
+        buf = proc.stdout.readline().replace('|', ' ').split()
         print(buf)
         dstat_json = {}
         dstat_json["cpu_usage"]  = {}
