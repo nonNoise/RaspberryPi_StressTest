@@ -1,12 +1,15 @@
 import subprocess
 
 command_str = ["dstat -a"] 
+
 proc = subprocess.Popen(command_str, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
 proc.stdout.readline()
 proc.stdout.readline()
-
 while True:
-    buf = proc.stdout.readline().replace('|', '').split()
+    tmp = proc.stdout.readline()
+    print(tmp)
+    buf = tmp.replace('|', '').split()
+    print(buf)
     dstat_json = {}
     dstat_json["cpu_usage"]  = {}
     dstat_json["cpu_usage"]["usr"]  = buf[0]
@@ -26,6 +29,4 @@ while True:
     dstat_json["system"] = {} 
     dstat_json["system"]["int"]     = buf[11]
     dstat_json["system"]["csw"]     = buf[12]
-    print(dstat_json["net"])
-       
     
