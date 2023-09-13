@@ -7,7 +7,8 @@ import os
 
 import subprocess
 
-
+command_str = ["iperf3 -c 192.168.100.3 -t 10 -u -b 1GB"] 
+test_command_pd = subprocess.Popen(command_str, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
 
 
 def main():
@@ -66,6 +67,9 @@ def main():
         # 結果表示
         fp.write("{},{},{},{},{},{},{},{},{},{},{}\n".format(datetime.now().strftime('%H:%M:%S'), temp, cpu[0],cpu[1],cpu[2],cpu[3],clock, volts, memory_percent, dstat_json["net"]["recv"], dstat_json["net"]["send"]))
         fp.close()
+
+        if(test_command_pd.poll()):
+            exit()
 
 # シェルコマンドを実行する関数
 def run_shell_command(command_str):
