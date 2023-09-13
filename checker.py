@@ -68,8 +68,8 @@ def main():
         fp.write("{},{},{},{},{},{},{},{},{},{},{}\n".format(datetime.now().strftime('%H:%M:%S'), temp, cpu[0],cpu[1],cpu[2],cpu[3],clock, volts, memory_percent, dstat_json["net"]["recv"], dstat_json["net"]["send"]))
         fp.close()
         print(test_command_pd.poll())
-        if(test_command_pd.poll() is None):
-            exit()
+        #if(test_command_pd.poll() is not None):
+        #   exit()
 
 # シェルコマンドを実行する関数
 def run_shell_command(command_str):
