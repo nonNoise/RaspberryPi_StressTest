@@ -4,6 +4,7 @@ import time
 from datetime import datetime
 import psutil
 import os
+import sys
 
 import subprocess
 
@@ -70,7 +71,7 @@ def main():
         print(test_command_pd.poll())
         if(test_command_pd.poll()==0):
            proc.kill()
-           exit()
+           sys.exit()
 
 # シェルコマンドを実行する関数
 def run_shell_command(command_str):
