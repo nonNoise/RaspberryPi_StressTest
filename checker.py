@@ -71,6 +71,7 @@ def main():
         print(test_command_pd.poll())
         if(test_command_pd.poll()==0):
            proc.kill()
+           time.sleep(2) 
            sys.exit()
 
 # シェルコマンドを実行する関数
