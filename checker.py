@@ -69,7 +69,7 @@ def main():
         fp.close()
         print(test_command_pd.poll())
         if(test_command_pd.poll()==0):
-           proc.terminate()
+           proc.kill()
            exit()
 
 # シェルコマンドを実行する関数
