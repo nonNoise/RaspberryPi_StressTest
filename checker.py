@@ -8,7 +8,7 @@ import sys
 
 import subprocess
 
-command_str = ["iperf3 -c 192.168.100.3 -t 10 -u -b 1GB"] 
+command_str = ["iperf3 -c 192.168.100.3 -t 100 -u -b 1GB"] 
 test_command_pd = subprocess.Popen(command_str, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
 
 
@@ -56,7 +56,7 @@ def main():
         time.sleep(0.8) # 1秒待つ
         
         
-        fname = datetime.now().strftime('%Y%m%d')+".csv"
+        fname = datetime.now().strftime('%Y%m%d_%H_%M_%S')+".csv"
         if(os.path.isfile(fname)):
             fp = open(fname, 'a',encoding='Shift-JIS')
             
@@ -70,7 +70,7 @@ def main():
         #print(test_command_pd.poll())
         if(test_command_pd.poll()==0):
            proc.kill()
-           time.sleep(5) 
+           time.sleep(1) 
            sys.exit()
 
 # シェルコマンドを実行する関数
