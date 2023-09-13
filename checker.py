@@ -56,7 +56,7 @@ def main():
         time.sleep(0.8) # 1秒待つ
         
         
-        fname = datetime.now().strftime('%Y%m%d_%H_%M_%S')+".csv"
+        fname = datetime.now().strftime('%Y%m%d')+".csv"
         if(os.path.isfile(fname)):
             fp = open(fname, 'a',encoding='Shift-JIS')
             
